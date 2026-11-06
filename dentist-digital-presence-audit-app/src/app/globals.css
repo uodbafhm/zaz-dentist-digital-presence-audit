@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
+  --font-body: var(--font-plex), "Segoe UI", Tahoma, sans-serif;
+
+  --color-bone: #f0ecdf;
+  --color-paper: #faf7ee;
+  --color-ink: #0e1f1d;
+  --color-ink-soft: #31403e;
+  --color-line: #d9d2c0;
+  --color-pine: #0a2925;
+  --color-deep: #052019;
+  --color-brand: #0c7c64;
+  --color-brand-deep: #0a5f4d;
+  --color-mint: #7ff3d2;
+  --color-coral: #e5484d;
+  --color-gold: #c9962e;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: floaty 7s ease-in-out infinite;
+  --animate-spin-slow: spin 16s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-mint);
+    color: var(--color-pine);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bone);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #b9b19c;
+    border-radius: 8px;
+    border: 2px solid var(--color-bone);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand);
+  }
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+  @media print {
+    body {
+      background: #fff !important;
+    }
+  }
+}
+
+@utility shadow-hard {
+  box-shadow: 7px 7px 0 0 var(--color-ink);
+}
+@utility shadow-hard-sm {
+  box-shadow: 3px 3px 0 0 var(--color-ink);
+}
+@utility shadow-hard-lg {
+  box-shadow: 12px 12px 0 0 var(--color-ink);
+}
+@utility shadow-hard-mint {
+  box-shadow: 7px 7px 0 0 rgba(127, 243, 210, 0.25);
+}
+
+@utility pattern-dots {
+  background-image: radial-gradient(
+    rgba(127, 243, 210, 0.13) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 24px 24px;
+}
+
+@utility pattern-grid {
+  background-image:
+    linear-gradient(rgba(14, 31, 29, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 31, 29, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(240, 236, 223, 0.28);
+  color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.print-footer {
+  display: none;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    background: #fff !important;
+  }
+  .grain,
+  .print-hidden {
+    display: none !important;
+  }
+  .report-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 auto !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  .avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+  .print-footer {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3mm 0 0;
+    border-top: 0.4mm solid #d9d2c0;
+    text-align: center;
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #6b7565;
+    background: #fff;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 9mm 8mm 16mm 8mm;
+}
